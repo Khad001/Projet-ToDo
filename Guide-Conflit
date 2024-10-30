@@ -1,0 +1,125 @@
+Voici quelques scénarios où deux membres d'une équipe pourraient modifier la même ligne dans un fichier `.html` sur GitHub, entraînant ainsi des conflits de fusion. Chaque scénario est documenté pour aider à la gestion des conflits.
+
+### Scénario 1 : Modification du même élément HTML
+
+**Description :**
+Deux développeurs, Alice et Bob, travaillent sur le même fichier `index.html`. Alice modifie la classe d'un élément `<div>`, tandis que Bob change le texte à l'intérieur du même `<div>`.
+
+**Exemple de modifications :**
+- Alice change : 
+  ```html
+  <div class="old-class">Texte original</div>
+  ```
+  en 
+  ```html
+  <div class="new-class">Texte original</div>
+  ```
+
+- Bob change :
+  ```html
+  <div class="old-class">Texte original</div>
+  ```
+  en 
+  ```html
+  <div class="old-class">Texte modifié par Bob</div>
+  ```
+
+**Conflit :**
+Lors de la fusion, Git détectera que les deux modifications touchent la même ligne, ce qui entraînera un conflit.
+
+**Gestion :**
+Les développeurs devront discuter pour décider quelle modification conserver ou comment combiner les deux.
+
+---
+
+### Scénario 2 : Ajout de nouveaux éléments au même endroit
+
+**Description :**
+Alice et Bob ajoutent tous deux un nouvel élément `<p>` après un certain `<h1>`. Alice ajoute un paragraphe sur les fonctionnalités, tandis que Bob ajoute une citation.
+
+**Exemple de modifications :**
+- Alice ajoute :
+  ```html
+  <h1>Titre</h1>
+  <p>Voici les nouvelles fonctionnalités.</p>
+  ```
+
+- Bob ajoute :
+  ```html
+  <h1>Titre</h1>
+  <p>Une citation inspirante.</p>
+  ```
+
+**Conflit :**
+Git ne saura pas quel `<p>` garder, car les deux sont insérés à la même position.
+
+**Gestion :**
+Les membres de l'équipe doivent décider de l'ordre des éléments ou de les combiner en un seul paragraphe.
+
+---
+
+### Scénario 3 : Modification de l’attribut d’un élément
+
+**Description :**
+Alice et Bob modifient les attributs d'une image `<img>` dans `gallery.html`. Alice change la source de l'image, et Bob modifie l'attribut `alt`.
+
+**Exemple de modifications :**
+- Alice change :
+  ```html
+  <img src="image1.jpg" alt="Image originale">
+  ```
+  en 
+  ```html
+  <img src="image2.jpg" alt="Image originale">
+  ```
+
+- Bob change :
+  ```html
+  <img src="image1.jpg" alt="Image originale">
+  ```
+  en 
+  ```html
+  <img src="image1.jpg" alt="Nouvelle description">
+  ```
+
+**Conflit :**
+Les changements affectent la même ligne, et Git ne pourra pas résoudre automatiquement le conflit.
+
+**Gestion :**
+Les deux développeurs devront discuter pour décider de la meilleure façon de gérer les changements d'attributs.
+
+---
+
+### Scénario 4 : Suppression et modification
+
+**Description :**
+Alice supprime une section de code tandis que Bob modifie une partie de la même section. 
+
+**Exemple de modifications :**
+- Alice supprime :
+  ```html
+  <div class="section">
+      <h2>Section à supprimer</h2>
+      <p>Contenu de cette section.</p>
+  </div>
+  ```
+
+- Bob modifie :
+  ```html
+  <div class="section">
+      <h2>Section à garder</h2>
+      <p>Contenu modifié de cette section.</p>
+  </div>
+  ```
+
+**Conflit :**
+La suppression d'Alice et la modification de Bob sur la même section entraîneront un conflit.
+
+**Gestion :**
+Il sera nécessaire de discuter pour déterminer si la section doit être supprimée ou si les modifications de Bob doivent être conservées.
+
+---
+
+### Conclusion
+
+Dans tous ces scénarios, la clé pour gérer les conflits est la communication. Les membres de l'équipe doivent collaborer pour comprendre les intentions derrière chaque modification et trouver la meilleure solution. Utiliser des outils de gestion de versions comme Git permet de visualiser les différences et de résoudre les conflits de manière organisée.
