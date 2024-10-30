@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application To-Do Avancée</title>
+    <style>
+    
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #a3e4d7;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="date"], input[type="time"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #a9cce3;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #6cb4a6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .date, .time {
+            margin-left: 10px;
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Liste de Tâches</h1>
+    <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche...">
+    <input type="date" id="due-date" placeholder="Date d'échéance">
+    <input type="time" id="due-time" placeholder="Heure de programmation">
+    <select id="priority-select">
+        <option value="Basse">Priorité : Basse</option>
+        <option value="Moyenne">Priorité : Moyenne</option>
+        <option value="Haute">Priorité : Haute</option>
+    </select>
+    <button id="add-task">Ajouter</button>
+    
+    <ul id="task-list"></ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', loadTasks);
+
+    document.getElementById('add-task').addEventListener('click', function() {
+        const taskInput = document.getElementById('task-input');
+        const dueDateInput = document.getElementById('due-date');
+        const dueTimeInput = document.getElementById('due-time');
+        const priorityInput = document.getElementById('priority-select');
+        const taskText = taskInput.value.trim();
+        const dueDate = dueDateInput.value;
+        const dueTime = dueTimeInput.value;
+        const priority = priorityInput.value;
+
+        if (taskText) {
+            addTask(taskText, dueDate, dueTime, priority);
+            taskInput.value = ''; // Réinitialiser le champ de saisie
+            dueDateInput.value = ''; // Réinitialiser la date
+            dueTimeInput.value = ''; // Réinitialiser l'heure
+            priorityInput.value = 'Basse'; // Réinitialiser la priorité
+        } else {
+            alert('Veuillez entrer une tâche.');
+        }
+    });
+
+    function addTask(taskText, dueDate, dueTime, priority) {
+        const li = document.createElement('li');
+        li.textContent = taskText;
+
+        if (dueDate) {
+            const dateSpan = document.createElement('span');
+            dateSpan.classList.add('date');
+            dateSpan.textContent = `Échéance: ${dueDate}`;
+            li.appendChild(dateSpan);
+        }
+
+        if (dueTime) {
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('time');
+            timeSpan.textContent = `Heure: ${dueTime}`;
+            li.appendChild(timeSpan);
+        }
+
+        const prioritySpan = document.createElement('span');
+        prioritySpan.classList.add('priority');
+        prioritySpan.textContent = `Priorité: ${priority}`;
+        li.appendChild(prioritySpan);
+
+        const completeButton = document.createElement('button');
+        completeButton.textContent = '✔';
+        completeButton.onclick = function() {
+            li.classList.toggle('completed');
+            saveTasks(); // Enregistrer les tâches
+        };
+
+        const editButton = document.createElement('button');
+        editButton.textContent = '🖍';
+        editButton.onclick = function() {
+            // Remplir les champs de saisie avec les valeurs de la tâche
+            document.getElementById('task-input').value = taskText;
+            document.getElementById('due-date').value = dueDate;
+            document.getElementById('due-time').value = dueTime;
+            document.getElementById('priority-select').value = priority;
+
+            // Supprimer la tâche de la liste
+            li.remove();
+            saveTasks(); // Enregistrer les tâches
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '✘';
+        deleteButton.onclick = function() {
+            li.remove();
+            saveTasks(); // Enregistrer les tâches
+        };
+
+        const today = new Date().toISOString().split('T')[0]; // Date d'aujourd'hui
+if (dueDate && dueDate < today) {
+    alert('La date d\'échéance ne peut pas être dans le passé.');
+    return;
+}
+
+        li.appendChild(completeButton);
+        li.appendChild(editButton);
+        li.appendChild(deleteButton);
+        document.getElementById('task-list').appendChild(li);
+        saveTasks(); // Enregistrer les tâches
+    }
+
+    function saveTasks() {
+        const tasks = [];
+        const rows = document.querySelectorAll('#task-list li');
+        rows.forEach(row => {
+            const taskText = row.firstChild.textContent;
+            const isCompleted = row.classList.contains('completed');
+            const dueDate = row.querySelector('.date') ? row.querySelector('.date').textContent.replace('Échéance: ', '') : '';
+            const dueTime = row.querySelector('.time') ? row.querySelector('.time').textContent.replace('Heure: ', '') : '';
+            const priority = row.querySelector('.priority') ? row.querySelector('.priority').textContent.replace('Priorité: ', '') : 'Basse';
+            tasks.push({ text: taskText, completed: isCompleted, dueDate: dueDate, dueTime: dueTime, priority: priority });
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => {
+            addTask(task.text, task.dueDate, task.dueTime, task.priority);
+            if (task.completed) {
+                const lastLi = document.querySelector('#task-list li:last-child');
+                lastLi.classList.add('completed');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
