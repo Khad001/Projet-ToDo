@@ -1,0 +1,25 @@
+Voici un résumé typique d'un conflit entre deux collaborateurs sur Git :
+
+### Contexte :
+Deux développeurs, Alice et Bob, travaillent sur le même projet. Alice et Bob ont tous deux cloné le même dépôt et ont commencé à travailler sur des fonctionnalités différentes dans la même branche.
+
+### Scénario du conflit :
+1. **Modifications concurrentes** :
+   - **Alice** modifie une fonction dans un fichier `app.py` pour ajouter une nouvelle fonctionnalité.
+   - **Bob** modifie la même fonction dans le même fichier pour corriger un bug.
+
+
+3. **Fusion et conflit** :
+   - Lorsque **Bob** essaie de pousser ses modifications, Git l'informe qu'il y a des modifications sur le dépôt distant qu'il n'a pas. Il doit d'abord tirer (pull) les changements.
+   - Après avoir exécuté `git pull`, Git tente de fusionner les modifications, mais il rencontre un conflit dans `app.py` car les deux modifications ne peuvent pas être appliquées simultanément.
+
+### Résolution :
+- **Identification du conflit** : Git marque les sections conflictuelles dans `app.py` avec des délimiteurs (`<<<<<<<`, `=======`, `>>>>>>>`).
+- **Discussion** : Alice et Bob discutent pour déterminer quelle modification doit être retenue ou comment les deux peuvent être combinées.
+- **Modification du fichier** : Après avoir convenu d'une solution, l'un des deux modifie le fichier pour résoudre le conflit.
+- **Ajout et commit** : Bob ajoute le fichier modifié à l'index et effectue un nouveau commit.
+- **Push final** : Bob peut maintenant pousser ses modifications vers le dépôt distant.
+
+### Conclusion :
+Les conflits sur Git sont courants lorsque plusieurs développeurs travaillent sur le même fichier. Une bonne communication et des pratiques de gestion des versions (comme des commits fréquents et des pulls réguliers) peuvent aider à minimiser ces conflits. Modification de NSANGOU
+ ajout de text pour les modifications

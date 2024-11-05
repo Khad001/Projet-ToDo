@@ -6,60 +6,70 @@
     <title>Application To-Do Avancée</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #e9ecef; /* Couleur de fond plus douce */
         }
         h1 {
             text-align: center;
+            color: #343a40; /* Couleur du texte du titre */
+            margin-bottom: 30px;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff; /* Arrière-plan blanc */
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
         }
         input[type="text"], input[type="date"], input[type="time"], select {
             width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #6c757d; /* Couleur de bordure plus sombre */
+            border-radius: 5px;
+            transition: border-color 0.3s; /* Transition fluide pour le changement de couleur */
+        }
+        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus {
+            border-color: #007bff; /* Couleur de bordure lors du focus */
+            outline: none; /* Enlève le contour par défaut */
         }
         button {
-            padding: 10px 15px;
-            background-color: #5cb85c;
+            padding: 12px 20px;
+            background-color: #007bff; /* Couleur de fond du bouton */
             border: none;
             color: white;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s; /* Transition fluide pour le changement de couleur */
         }
         button:hover {
-            background-color: #4cae4c;
+            background-color: #0056b3; /* Couleur du bouton au survol */
         }
         ul {
             list-style-type: none;
             padding: 0;
         }
         li {
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-top: 5px;
+            padding: 12px;
+            border: 1px solid #ced4da; /* Couleur de bordure des tâches */
+            margin-top: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background-color: #f8f9fa; /* Arrière-plan clair pour les tâches */
+            border-radius: 5px; /* Coins arrondis pour les tâches */
         }
         .completed {
             text-decoration: line-through;
-            color: gray;
+            color: #868e96; /* Couleur grise pour les tâches complètes */
         }
         .date, .time {
             margin-left: 10px;
             font-style: italic;
-            color: #888;
+            color: #6c757d; /* Couleur de texte pour la date et l'heure */
         }
     </style>
 </head>
@@ -151,9 +161,16 @@
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '❌';
         deleteButton.onclick = function() {
+            // Supprimer la tâche de la liste
             li.remove();
             saveTasks(); // Enregistrer les tâches
         };
+
+        const today = new Date().toISOString().split('T')[0]; // Date d'aujourd'hui
+        if (dueDate && dueDate < today) {
+            alert('La date d\'échéance ne peut pas être dans le passé.');
+            return;
+        }
 
         li.appendChild(completeButton);
         li.appendChild(editButton);

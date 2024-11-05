@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #aa9494;
         }
         h1 {
             text-align: center;
@@ -26,19 +26,19 @@
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #6888ce;
             border-radius: 4px;
         }
         button {
             padding: 10px 15px;
             background-color: #5cb85c;
             border: none;
-            color: white;
+            color: rgb(233, 231, 151);
             border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #4cae4c;
+            background-color: #ebcbd9;
         }
         ul {
             list-style-type: none;
@@ -151,15 +151,16 @@
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '❌';
         deleteButton.onclick = function() {
+            // Supprimer la tâche de la liste
             li.remove();
             saveTasks(); // Enregistrer les tâches
         };
 
         const today = new Date().toISOString().split('T')[0]; // Date d'aujourd'hui
-if (dueDate && dueDate < today) {
-    alert('La date d\'échéance ne peut pas être dans le passé.');
-    return;
-}
+        if (dueDate && dueDate < today) {
+            alert('La date d\'échéance ne peut pas être dans le passé.');
+            return;
+        }
 
         li.appendChild(completeButton);
         li.appendChild(editButton);
