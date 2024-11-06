@@ -61,6 +61,15 @@
             font-style: italic;
             color: #888;
         }
+        
+        /* Styles pour le menu de filtrage */
+        #filter-select {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(100% - 22px); /* Ajustement pour correspondre aux autres champs */
+        }
     </style>
 </head>
 <body>
@@ -137,13 +146,11 @@
         const editButton = document.createElement('button');
         editButton.textContent = '✏️';
         editButton.onclick = function() {
-            // Remplir les champs de saisie avec les valeurs de la tâche
             document.getElementById('task-input').value = taskText;
             document.getElementById('due-date').value = dueDate;
             document.getElementById('due-time').value = dueTime;
             document.getElementById('priority-select').value = priority;
 
-            // Supprimer la tâche de la liste
             li.remove();
             saveTasks(); // Enregistrer les tâches
         };
@@ -186,6 +193,21 @@
             }
         });
     }
+
+    // Fonction de filtrage des tâches par priorité
+    document.getElementById('filter-select').addEventListener('change', function() {
+        const selectedPriority = this.value;
+        const tasks = document.querySelectorAll('#task-list li');
+
+        tasks.forEach(task => {
+            const priority = task.querySelector('.priority').textContent.replace('Priorité: ', '');
+            if (selectedPriority === 'Tous' || priority === selectedPriority) {
+                task.style.display = ''; // Afficher
+            } else {
+                task.style.display = 'none'; // Masquer
+            }
+        });
+    });
 </script>
 
 </body>

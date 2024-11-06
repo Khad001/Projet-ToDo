@@ -6,60 +6,76 @@
     <title>Application To-Do Avancée</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Verdana', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #a3e4d7;
+            background-color: #e0f7fa; /* Couleur de fond douce */
         }
         h1 {
             text-align: center;
+            color: #00796b; /* Couleur du titre */
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff; /* Fond blanc */
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px; /* Coins plus arrondis */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         input[type="text"], input[type="date"], input[type="time"], select {
             width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px; /* Rembourrage légèrement plus important */
+            margin-bottom: 15px; /* Espacement accru */
+            border: 2px solid #80cbc4; /* Bordure plus visible */
+            border-radius: 6px; /* Coins arrondis */
+            transition: border-color 0.3s; /* Transition douce pour la bordure */
+        }
+        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus {
+            border-color: #004d40; /* Couleur de bordure au focus */
         }
         button {
-            padding: 10px 15px;
-            background-color: #a9cce3;
+            padding: 12px 18px; /* Rembourrage légèrement augmenté */
+            background-color: #009688; /* Couleur de fond du bouton */
             border: none;
             color: white;
-            border-radius: 4px;
+            border-radius: 6px; /* Coins arrondis */
             cursor: pointer;
+            transition: background-color 0.3s; /* Transition douce au survol */
         }
         button:hover {
-            background-color: #6cb4a6;
+            background-color: #00796b; /* Couleur au survol */
         }
         ul {
             list-style-type: none;
             padding: 0;
         }
         li {
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-top: 5px;
+            padding: 12px; /* Rembourrage légèrement augmenté */
+            border: 1px solid #b2dfdb; /* Bordure plus douce */
+            margin-top: 8px; /* Espacement accru */
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 6px; /* Coins arrondis */
         }
         .completed {
             text-decoration: line-through;
-            color: gray;
+            color: #78909c; /* Couleur des tâches complètes */
         }
         .date, .time {
             margin-left: 10px;
             font-style: italic;
-            color: #888;
+            color: #555; /* Couleur des dates et heures */
+        }
+        
+        /* Styles pour le menu de filtrage */
+        #filter-select {
+            margin-bottom: 20px;
+            padding: 12px; /* Rembourrage pour le menu de filtrage */
+            border: 2px solid #80cbc4; /* Bordure visible */
+            border-radius: 6px; /* Coins arrondis */
+            width: calc(100% - 22px); /* Ajustement pour correspondre aux autres champs */
         }
     </style>
 </head>
